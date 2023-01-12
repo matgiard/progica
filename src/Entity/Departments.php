@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\DepartmentRepository;
+use App\Repository\DepartmentsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: DepartmentRepository::class)]
-class Department
+#[ORM\Entity(repositoryClass: DepartmentsRepository::class)]
+class Departments
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -24,9 +24,6 @@ class Department
 
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
-
-    #[ORM\Column]
-    private ?int $id_region = null;
 
     public function getId(): ?int
     {
@@ -77,18 +74,6 @@ class Department
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
-
-        return $this;
-    }
-
-    public function getIdRegion(): ?int
-    {
-        return $this->id_region;
-    }
-
-    public function setIdRegion(int $id_region): self
-    {
-        $this->id_region = $id_region;
 
         return $this;
     }
