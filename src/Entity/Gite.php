@@ -17,7 +17,7 @@ class Gite
     private ?string $adress = null;
 
     #[ORM\Column]
-    private ?int $id_town = null;
+    private ?int $id_cities = null;
 
     #[ORM\Column]
     private ?float $surface = null;
@@ -50,12 +50,6 @@ class Gite
     private ?int $id_pets = null;
 
     #[ORM\Column]
-    private ?int $id_departement = null;
-
-    #[ORM\Column]
-    private ?int $id_region = null;
-
-    #[ORM\Column]
     private ?int $id_position = null;
 
     #[ORM\Column]
@@ -78,14 +72,14 @@ class Gite
         return $this;
     }
 
-    public function getIdTown(): ?int
+    public function getIdCities(): ?int
     {
-        return $this->id_town;
+        return $this->id_cities;
     }
 
-    public function setIdTown(int $id_town): self
+    public function setIdCities(int $id_cities): self
     {
-        $this->id_town = $id_town;
+        $this->id_cities = $id_cities;
 
         return $this;
     }
@@ -206,30 +200,6 @@ class Gite
     public function setIdPets(int $id_pets): self
     {
         $this->id_pets = $id_pets;
-
-        return $this;
-    }
-
-    public function getIdDepartement(): ?int
-    {
-        return $this->id_departement;
-    }
-
-    public function setIdDepartement(int $id_departement): self
-    {
-        $this->id_departement = $id_departement;
-
-        return $this;
-    }
-
-    public function getIdRegion(): ?int
-    {
-        return $this->id_region;
-    }
-
-    public function setIdRegion(int $id_region): self
-    {
-        $this->id_region = $id_region;
 
         return $this;
     }

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 12 jan. 2023 à 11:37
+-- Généré le : jeu. 12 jan. 2023 à 15:16
 -- Version du serveur : 10.4.24-MariaDB
--- Version de PHP : 8.1.6
+-- Version de PHP : 8.0.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,6 +36,73 @@ CREATE TABLE `admin` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `ceo`
+--
+
+CREATE TABLE `ceo` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `ceo`
+--
+
+INSERT INTO `ceo` (`id`, `email`, `password`) VALUES
+(1, 'eva.khance@progica.com', '1234');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `cities`
+--
+
+CREATE TABLE `cities` (
+  `id` int(11) NOT NULL,
+  `department_code` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `insee_code` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `zip_code` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gps_lat` double NOT NULL,
+  `gps_lng` double NOT NULL,
+  `id_department` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `contact`
+--
+
+CREATE TABLE `contact` (
+  `id` int(11) NOT NULL,
+  `firstname` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lastname` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `telephone` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `available_hours` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `department`
+--
+
+CREATE TABLE `department` (
+  `id` int(11) NOT NULL,
+  `region_code` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_region` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `doctrine_migration_versions`
 --
 
@@ -51,6 +118,42 @@ CREATE TABLE `doctrine_migration_versions` (
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 ('DoctrineMigrations\\Version20230112092001', '2023-01-12 10:20:30', 138);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `equipement`
+--
+
+CREATE TABLE `equipement` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `gite`
+--
+
+CREATE TABLE `gite` (
+  `id` int(11) NOT NULL,
+  `adress` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `surface` double NOT NULL,
+  `link_picture` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `rooms` int(11) NOT NULL,
+  `beds` int(11) NOT NULL,
+  `base_price` double NOT NULL,
+  `total_price` double NOT NULL,
+  `id_service` int(11) NOT NULL,
+  `id_equipement` int(11) NOT NULL,
+  `id_price_period` int(11) NOT NULL,
+  `id_pets` int(11) NOT NULL,
+  `id_position` int(11) NOT NULL,
+  `id_owner` int(11) NOT NULL,
+  `id_cities` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -89,8 +192,57 @@ CREATE TABLE `owner` (
 --
 
 INSERT INTO `owner` (`id`, `firstname`, `lastname`, `telephone`, `email`, `password`, `id_contact`) VALUES
-(1, 'Mathieu', 'Giard', '645971324', 'matgiard.pro@gmail.com', 'azerty', 1),
+(1, 'Mathieu', 'Giard', '0645971324', 'matgiard.pro@gmail.com', 'azerty', 1),
 (2, 'Xavier', 'Dorival', '0243659748', 'xavier.dorival@email.com', '123456', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `pets`
+--
+
+CREATE TABLE `pets` (
+  `id` int(11) NOT NULL,
+  `accept` tinyint(1) NOT NULL,
+  `price` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `price_period`
+--
+
+CREATE TABLE `price_period` (
+  `id` int(11) NOT NULL,
+  `majoration` tinyint(1) NOT NULL,
+  `rate` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `region`
+--
+
+CREATE TABLE `region` (
+  `id` int(11) NOT NULL,
+  `code` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `service`
+--
+
+CREATE TABLE `service` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Index pour les tables déchargées
@@ -103,10 +255,46 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `ceo`
+--
+ALTER TABLE `ceo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `cities`
+--
+ALTER TABLE `cities`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `contact`
+--
+ALTER TABLE `contact`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `department`
+--
+ALTER TABLE `department`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `doctrine_migration_versions`
 --
 ALTER TABLE `doctrine_migration_versions`
   ADD PRIMARY KEY (`version`);
+
+--
+-- Index pour la table `equipement`
+--
+ALTER TABLE `equipement`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `gite`
+--
+ALTER TABLE `gite`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `messenger_messages`
@@ -124,6 +312,30 @@ ALTER TABLE `owner`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `pets`
+--
+ALTER TABLE `pets`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `price_period`
+--
+ALTER TABLE `price_period`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `region`
+--
+ALTER TABLE `region`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `service`
+--
+ALTER TABLE `service`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
@@ -131,6 +343,42 @@ ALTER TABLE `owner`
 -- AUTO_INCREMENT pour la table `admin`
 --
 ALTER TABLE `admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `ceo`
+--
+ALTER TABLE `ceo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `cities`
+--
+ALTER TABLE `cities`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `contact`
+--
+ALTER TABLE `contact`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `department`
+--
+ALTER TABLE `department`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `equipement`
+--
+ALTER TABLE `equipement`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `gite`
+--
+ALTER TABLE `gite`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -144,6 +392,30 @@ ALTER TABLE `messenger_messages`
 --
 ALTER TABLE `owner`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT pour la table `pets`
+--
+ALTER TABLE `pets`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `price_period`
+--
+ALTER TABLE `price_period`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `region`
+--
+ALTER TABLE `region`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `service`
+--
+ALTER TABLE `service`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
