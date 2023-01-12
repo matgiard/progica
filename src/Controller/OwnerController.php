@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/owner')]
 class OwnerController extends AbstractController
 {
-    #[Route('/', name: 'app_owner_index', methods: ['GET'])]
+    #[Route('/owner/index', name: 'app_owner_index', methods: ['GET'])]
     public function index(OwnerRepository $ownerRepository): Response
     {
         return $this->render('owner/index.html.twig', [
@@ -21,7 +21,7 @@ class OwnerController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_owner_new', methods: ['GET', 'POST'])]
+    #[Route('/owner/new', name: 'app_owner_new', methods: ['GET', 'POST'])]
     public function new(Request $request, OwnerRepository $ownerRepository): Response
     {
         $owner = new Owner();
