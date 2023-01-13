@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 12 jan. 2023 à 15:50
+-- Généré le : ven. 13 jan. 2023 à 12:02
 -- Version du serveur : 10.4.24-MariaDB
 -- Version de PHP : 8.0.19
 
@@ -36175,6 +36175,28 @@ CREATE TABLE `gite` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `gite_equipement`
+--
+
+CREATE TABLE `gite_equipement` (
+  `id_gite` int(11) NOT NULL,
+  `id_equipement` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `git_service`
+--
+
+CREATE TABLE `git_service` (
+  `id_gite` int(11) NOT NULL,
+  `id_service` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `messenger_messages`
 --
 
@@ -36203,6 +36225,14 @@ CREATE TABLE `owner` (
   `password` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_contact` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `owner`
+--
+
+INSERT INTO `owner` (`id`, `firstname`, `lastname`, `telephone`, `email`, `password`, `id_contact`) VALUES
+(1, 'Mathieu', 'Giard', '0123456789', 'mgiard@email.com', '1234', NULL),
+(2, 'Xavier', 'Dorival', '0123456789', 'xdorival@email.com', '1234', NULL);
 
 -- --------------------------------------------------------
 
@@ -36328,6 +36358,20 @@ ALTER TABLE `gite`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `gite_equipement`
+--
+ALTER TABLE `gite_equipement`
+  ADD KEY `id_gite` (`id_gite`),
+  ADD KEY `id_equipement` (`id_equipement`);
+
+--
+-- Index pour la table `git_service`
+--
+ALTER TABLE `git_service`
+  ADD KEY `id_gite` (`id_gite`),
+  ADD KEY `id_service` (`id_service`);
+
+--
 -- Index pour la table `messenger_messages`
 --
 ALTER TABLE `messenger_messages`
@@ -36423,7 +36467,7 @@ ALTER TABLE `messenger_messages`
 -- AUTO_INCREMENT pour la table `owner`
 --
 ALTER TABLE `owner`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `pets`
