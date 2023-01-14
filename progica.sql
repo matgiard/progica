@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 13 jan. 2023 à 14:55
+-- Généré le : sam. 14 jan. 2023 à 11:55
 -- Version du serveur : 10.4.24-MariaDB
 -- Version de PHP : 8.1.6
 
@@ -36127,6 +36127,22 @@ CREATE TABLE `equipement` (
   `price` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Déchargement des données de la table `equipement`
+--
+
+INSERT INTO `equipement` (`id`, `name`, `price`) VALUES
+(1, 'Lave-vaisselle', 20),
+(2, 'Lave-linge', 15),
+(3, 'Climatisation', 10),
+(4, 'TV', 10),
+(5, 'Terrasse', 5),
+(6, 'Barbecue', 10),
+(7, 'Piscine privée', 60),
+(8, 'Piscine partagée', 25),
+(9, 'Tennis', 50),
+(10, 'Ping-Pong', 30);
+
 -- --------------------------------------------------------
 
 --
@@ -36262,6 +36278,15 @@ CREATE TABLE `service` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `service`
+--
+
+INSERT INTO `service` (`id`, `name`, `price`) VALUES
+(1, 'Location de linge', 10),
+(2, 'Ménage en fin de séjour', 15),
+(3, 'Accès Internet', 25);
 
 -- --------------------------------------------------------
 
@@ -36402,7 +36427,7 @@ ALTER TABLE `departments`
 -- AUTO_INCREMENT pour la table `equipement`
 --
 ALTER TABLE `equipement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT pour la table `gite`
@@ -36438,7 +36463,7 @@ ALTER TABLE `regions`
 -- AUTO_INCREMENT pour la table `service`
 --
 ALTER TABLE `service`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `user`
