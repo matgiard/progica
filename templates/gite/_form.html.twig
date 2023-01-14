@@ -1,39 +1,4 @@
 {{ form_start(form) }}
-    {{ form_row(form.adress, {
-        label: 'Adresse'
-    }) }}
-    {{ form_row(form.id_cities, {
-        label: 'Ville'
-    }) }}
-    {{ form_row(form.surface, {
-        label: 'Surface'
-    }) }}
-    {{ form_row(form.link_picture, {
-        label: 'Photos'
-    }) }}
-    {{ form_row(form.rooms, {
-        label: 'Chambres'
-    }) }}
-    {{ form_row(form.beds, {
-        label: 'Couchages'
-    }) }}
-    {{ form_row(form.base_price, {
-        label: 'Prix de base'
-    }) }}
-    {{ form_row(form.total_price, {
-        label: 'Prix total'
-    }) }}
-    {{ form_row(form.id_service, {
-        label: 'Services disponibles'
-    }) }}
-    {{ form_row(form.id_equipement, {
-        label: 'Équipements disponibles'
-    }) }}
-    {{ form_row(form.id_price_period, {
-        label: "Période de l'année"
-    }) }}
-    {{ form_row(form.id_pets, {
-        label: 'Animaux'
-    }) }}
-    <button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
+    {{ form_widget(form) }}
+<button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
