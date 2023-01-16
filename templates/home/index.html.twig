@@ -3,5 +3,12 @@
 {% block title %}PROGICA - Association des Propriétaires de Gîtes Campagnards{% endblock %}
 
 {% block body %}
-<nav>{{ parent() }}</nav>
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
 {% endblock %}
