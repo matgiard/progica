@@ -1,0 +1,8 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        gites:
+            uri_prefix: /images/gite
+            upload_destination: '%kernel.project_dir%/public/images/gite'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

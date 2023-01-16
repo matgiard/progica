@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\GiteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: GiteRepository::class)]
 class Gite
@@ -21,6 +23,9 @@ class Gite
 
     #[ORM\Column]
     private ?float $surface = null;
+
+    #[Vich\UploadableField(mapping: 'gites', fileNameProperty: 'link_picture', size: 'imageSize')]
+    private ?File $imageFile = null;
 
     #[ORM\Column(length: 255)]
     private ?string $link_picture = null;
@@ -94,6 +99,16 @@ class Gite
         $this->surface = $surface;
 
         return $this;
+    }
+
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
     }
 
     public function getLinkPicture(): ?string
