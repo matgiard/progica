@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : sam. 14 jan. 2023 à 11:55
+-- Généré le : lun. 16 jan. 2023 à 11:22
 -- Version du serveur : 10.4.24-MariaDB
 -- Version de PHP : 8.1.6
 
@@ -36310,8 +36310,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `roles`, `password`, `firstname`, `lastname`, `telephone`, `id_contact`) VALUES
-(1, 'mgiard@test.com', '[]', '$2y$13$O1J8Pd5xlDlnAu/VghPSu.CFQzHlb20HbmUQUwbQ1JAmJfrt3weo6', 'Mathieu', 'Giard', NULL, NULL),
-(2, 'xdorival@test.com', '[]', '$2y$13$9LuOVyzW7xmZ8JQBN9Tx9ePkfvniKnH8IhASsXINctivxJbjPaR6i', 'Xavier', 'Dorival', NULL, NULL);
+(1, 'mgiard@test.com', '[\"ROLE_ADMIN\"]', '$2y$13$O1J8Pd5xlDlnAu/VghPSu.CFQzHlb20HbmUQUwbQ1JAmJfrt3weo6', 'Mathieu', 'Giard', NULL, NULL),
+(2, 'xdorival@test.com', '[\"ROLE_ADMIN\"]', '$2y$13$9LuOVyzW7xmZ8JQBN9Tx9ePkfvniKnH8IhASsXINctivxJbjPaR6i', 'Xavier', 'Dorival', NULL, NULL),
+(3, 'eva.khance@progica.fr', '[\"ROLE_ADMIN\"]', '$2y$13$hO/q4jNibNrtZY4ZEBGl9O/rRlhJoIOPZ3wHYFswGTauj2M3X/3fO', 'Eva', 'Khance', NULL, NULL),
+(4, 'renaud.faque@gmail.com', '[\"ROLE_USER\"]', '$2y$13$gh0ZFz4aLwCtB/MAqgeskOVPbqsJIaz8DyQv6n/bCyG/28kV6Vv1K', 'Renaud', 'Faque', NULL, NULL);
 
 --
 -- Index pour les tables déchargées
@@ -36469,7 +36471,7 @@ ALTER TABLE `service`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
