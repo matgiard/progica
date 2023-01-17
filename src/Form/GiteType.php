@@ -24,12 +24,8 @@ class GiteType extends AbstractType
                 'required' => true,
                 'label' => 'Adresse'
             ])
-            ->add('id_cities', EntityType::class, [
-                'required' => true,
-                'label' => 'Choisir une ville',
-                'class' => Cities::class,
-                'choice_label' => 'name',
-            ])
+            ->add('id_cities', CitiesAutocompleteField::class
+            )
             ->add('surface')
             ->add('link_picture', FileType::class, [
                 'label' => 'Photo (jpg, png)',

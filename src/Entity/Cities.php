@@ -137,4 +137,9 @@ class Cities
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->name.' '.$this->zip_code;
+    }
 }
