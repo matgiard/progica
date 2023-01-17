@@ -6,9 +6,12 @@ use App\Entity\Gite;
 use App\Form\GiteType;
 use App\Repository\GiteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/gite')]
 class GiteController extends AbstractController
@@ -22,7 +25,7 @@ class GiteController extends AbstractController
     }
 
     #[Route('/new', name: 'app_gite_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, GiteRepository $giteRepository): Response
+    public function new(Request $request, GiteRepository $giteRepository, SluggerInterface $slugger): Response
     {
         $gite = new Gite();
         $form = $this->createForm(GiteType::class, $gite);
@@ -31,7 +34,35 @@ class GiteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $giteRepository->save($gite, true);
 
+            /** @var UploadedFile $link_picture */
+            $link_picture = $form->get('link_picture')->getData();
+            // this condition is needed because the 'brochure' field is not required
+            // so the PDF file must be processed only when a file is uploaded
+
+            if ($link_picture) {
+                $originalFilename = $link_picture->getClientOriginalName();
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $link_picture->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $link_picture->move(
+                        $this->getParameter('picture_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $gite->setLinkPicture($newFilename);
+
+            }
             return $this->redirectToRoute('app_gite_index', [], Response::HTTP_SEE_OTHER);
+
+
         }
 
         return $this->renderForm('gite/new.html.twig', [
@@ -40,7 +71,11 @@ class GiteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_gite_show', methods: ['GET'])]
+
+
+
+
+        #[Route('/{id}', name: 'app_gite_show', methods: ['GET'])]
     public function show(Gite $gite): Response
     {
         return $this->render('gite/show.html.twig', [
@@ -69,7 +104,7 @@ class GiteController extends AbstractController
     #[Route('/{id}', name: 'app_gite_delete', methods: ['POST'])]
     public function delete(Request $request, Gite $gite, GiteRepository $giteRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$gite->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $gite->getId(), $request->request->get('_token'))) {
             $giteRepository->remove($gite, true);
         }
 

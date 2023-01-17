@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Gite;
-use App\Entity\Cities;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -33,13 +32,12 @@ class GiteType extends AbstractType
             ->add('surface')
             ->add('link_picture', FileType::class, [
                 'label' => 'Photo (jpg, png)',
-                'mapped' => false,
-
                 'constraints' => [
                     new File([
-                        'maxSize' => '1024k',
+                        'maxSize' => '3000k',
                         'mimeTypes' => [
                             'image/jpeg',
+                            'image/jpg',
                             'image/pjpeg',
                             'image/png',
                             'image/x-png',
@@ -60,18 +58,6 @@ class GiteType extends AbstractType
             ->add('base_price', TextType::class, [
                 'required' => true,
                 'label' => 'Prix de base'
-            ])
-            ->add('total_price', TextType::class, [
-                'required' => true,
-                'label' => 'Prix total'
-            ])
-            ->add('id_service', TextType::class, [
-                'required' => true,
-                'label' => 'Selectionnez vos services disponibles'
-            ])
-            ->add('id_equipement', TextType::class, [
-                'required' => true,
-                'label' => 'Selectionnez vos équipements disponibles'
             ])
             ->add('id_price_period', TextType::class, [
                 'required' => true,

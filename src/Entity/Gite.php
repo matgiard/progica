@@ -30,11 +30,8 @@ class Gite
     #[ORM\Column]
     private ?float $surface = null;
 
-    #[Vich\UploadableField(mapping: 'gites', fileNameProperty: 'link_picture', size: 'imageSize')]
-    private ?File $imageFile = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $link_picture = null;
+    #[ORM\Column]
+    private ?string $link_picture;
 
     #[ORM\Column]
     private ?int $rooms = null;
@@ -46,22 +43,10 @@ class Gite
     private ?float $base_price = null;
 
     #[ORM\Column]
-    private ?float $total_price = null;
-
-    #[ORM\Column]
-    private ?int $id_service = null;
-
-    #[ORM\Column]
-    private ?int $id_equipement = null;
-
-    #[ORM\Column]
     private ?int $id_price_period = null;
 
     #[ORM\Column]
     private ?int $id_pets = null;
-
-    #[ORM\Column]
-    private ?int $id_position = null;
 
     #[ORM\Column]
     private ?int $id_owner = null;
@@ -131,16 +116,6 @@ class Gite
         return $this;
     }
 
-    public function setImageFile(?File $imageFile = null): void
-    {
-        $this->imageFile = $imageFile;
-    }
-
-    public function getImageFile(): ?File
-    {
-        return $this->imageFile;
-    }
-
     public function getLinkPicture(): ?string
     {
         return $this->link_picture;
@@ -189,42 +164,6 @@ class Gite
         return $this;
     }
 
-    public function getTotalPrice(): ?float
-    {
-        return $this->total_price;
-    }
-
-    public function setTotalPrice(float $total_price): self
-    {
-        $this->total_price = $total_price;
-
-        return $this;
-    }
-
-    public function getIdService(): ?int
-    {
-        return $this->id_service;
-    }
-
-    public function setIdService(int $id_service): self
-    {
-        $this->id_service = $id_service;
-
-        return $this;
-    }
-
-    public function getIdEquipement(): ?int
-    {
-        return $this->id_equipement;
-    }
-
-    public function setIdEquipement(int $id_equipement): self
-    {
-        $this->id_equipement = $id_equipement;
-
-        return $this;
-    }
-
     public function getIdPricePeriod(): ?int
     {
         return $this->id_price_period;
@@ -245,18 +184,6 @@ class Gite
     public function setIdPets(int $id_pets): self
     {
         $this->id_pets = $id_pets;
-
-        return $this;
-    }
-
-    public function getIdPosition(): ?int
-    {
-        return $this->id_position;
-    }
-
-    public function setIdPosition(int $id_position): self
-    {
-        $this->id_position = $id_position;
 
         return $this;
     }
