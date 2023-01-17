@@ -24,13 +24,17 @@ class GiteType extends AbstractType
                 'required' => true,
                 'label' => 'Adresse'
             ])
-            ->add('id_cities', CitiesAutocompleteField::class
+            ->add('city', CitiesAutocompleteField::class
+            )
+            ->add('department', DepartmentsAutocompleteField::class
+            )
+            ->add('region', RegionsAutocompleteField::class
             )
             ->add('surface')
             ->add('link_picture', FileType::class, [
                 'label' => 'Photo (jpg, png)',
                 'mapped' => false,
-                'required' => false,
+
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',
