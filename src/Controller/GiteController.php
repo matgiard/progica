@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Photos;
 use App\Entity\Gite;
+use App\Entity\User;
 use App\Form\GiteType;
 use App\Repository\GiteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,17 +13,18 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
-
-
+use function mysql_xdevapi\getSession;
 
 
 #[Route('/gite')]
 class GiteController extends AbstractController
 {
     #[Route('/index', name: 'app_gite_index', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(GiteRepository $giteRepository): Response
     {
         return $this->render('gite/index.html.twig', [
@@ -31,9 +33,10 @@ class GiteController extends AbstractController
     }
 
     #[Route('/new', name: 'app_gite_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, GiteRepository $giteRepository, SluggerInterface $slugger): Response
+    public function new(Request $request, GiteRepository $giteRepository, UserInterface $user,SluggerInterface $slugger): Response
     {
         $gite = new Gite();
+        $gite->setUser($user);
         $form = $this->createForm(GiteType::class, $gite);
         $form->handleRequest($request);
 
@@ -66,7 +69,8 @@ class GiteController extends AbstractController
 
             $giteRepository->save($gite, true);
 
-            return $this->redirectToRoute('app_gite_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+
 
 
         }

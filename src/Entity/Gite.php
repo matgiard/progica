@@ -52,8 +52,13 @@ class Gite
     #[ORM\Column]
     private ?bool $pets = null;
 
-    #[ORM\Column]
-    private ?int $id_owner;
+    #[ORM\Column(nullable: true)]
+    private ?float $pets_price = null;
+
+    #[ORM\ManyToOne(inversedBy: 'gites')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
 
     public function getId(): ?int
     {
@@ -192,15 +197,28 @@ class Gite
         return $this;
     }
 
-    public function getIdOwner(): ?int
+    public function getPetsPrice(): ?float
     {
-        return $this->id_owner;
+        return $this->pets_price;
     }
 
-    public function setIdOwner(int $id_owner): self
+    public function setPetsPrice(?float $pets_price): self
     {
-        $this->id_owner = $id_owner;
+        $this->pets_price = $pets_price;
 
         return $this;
     }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
 }

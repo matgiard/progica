@@ -77,6 +77,10 @@ class GiteType extends AbstractType
                 'required' => false,
                 'label' => 'Animaux acceptés'
             ])
+            ->add('pets_price', TextType::class, [
+                'required' => false,
+                'label' => 'Si animaux acceptés veuillez en indiquer le tarif'
+            ])
         ;
     }
 

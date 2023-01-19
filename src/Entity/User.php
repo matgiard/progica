@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -40,6 +42,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(nullable: true)]
     private ?int $id_contact = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Gite::class, orphanRemoval: true)]
+    private Collection $gites;
+
+    public function __construct()
+    {
+        $this->gites = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -155,6 +165,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIdContact(int $id_contact): self
     {
         $this->id_contact = $id_contact;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Gite>
+     */
+    public function getGites(): Collection
+    {
+        return $this->gites;
+    }
+
+    public function addGite(Gite $gite): self
+    {
+        if (!$this->gites->contains($gite)) {
+            $this->gites->add($gite);
+            $gite->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGite(Gite $gite): self
+    {
+        if ($this->gites->removeElement($gite)) {
+            // set the owning side to null (unless already changed)
+            if ($gite->getUser() === $this) {
+                $gite->setUser(null);
+            }
+        }
 
         return $this;
     }
