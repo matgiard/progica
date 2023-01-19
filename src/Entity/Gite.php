@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\GiteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
+
 
 #[ORM\Entity(repositoryClass: GiteRepository::class)]
 class Gite
@@ -31,7 +34,7 @@ class Gite
     private ?float $surface = null;
 
     #[ORM\Column]
-    private ?string $link_picture;
+    private ?string $photos = null;
 
     #[ORM\Column]
     private ?int $rooms = null;
@@ -49,7 +52,7 @@ class Gite
     private ?int $id_pets = null;
 
     #[ORM\Column]
-    private ?int $id_owner = null;
+    private ?int $id_owner;
 
     public function getId(): ?int
     {
@@ -116,14 +119,14 @@ class Gite
         return $this;
     }
 
-    public function getLinkPicture(): ?string
+    public function getPhotos(): ?string
     {
-        return $this->link_picture;
+        return $this->photos;
     }
 
-    public function setLinkPicture(string $link_picture): self
+    public function setPhotos(string $photos): self
     {
-        $this->link_picture = $link_picture;
+        $this->photos = $photos;
 
         return $this;
     }

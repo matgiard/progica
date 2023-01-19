@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Photos;
 use App\Entity\Gite;
 use App\Form\GiteType;
 use App\Repository\GiteRepository;
@@ -12,6 +13,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
+
+
+
 
 #[Route('/gite')]
 class GiteController extends AbstractController
@@ -32,22 +38,20 @@ class GiteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $giteRepository->save($gite, true);
 
-            /** @var UploadedFile $link_picture */
-            $link_picture = $form->get('link_picture')->getData();
+            $photosFile = $form->get('photos')->getData();
+
             // this condition is needed because the 'brochure' field is not required
             // so the PDF file must be processed only when a file is uploaded
-
-            if ($link_picture) {
-                $originalFilename = $link_picture->getClientOriginalName();
+            if ($photosFile) {
+                $originalFilename = pathinfo($photosFile->getClientOriginalName(), PATHINFO_FILENAME);
                 // this is needed to safely include the file name as part of the URL
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $link_picture->guessExtension();
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $photosFile->guessExtension();
 
                 // Move the file to the directory where brochures are stored
                 try {
-                    $link_picture->move(
+                    $photosFile->move(
                         $this->getParameter('picture_directory'),
                         $newFilename
                     );
@@ -57,9 +61,11 @@ class GiteController extends AbstractController
 
                 // updates the 'brochureFilename' property to store the PDF file name
                 // instead of its contents
-                $gite->setLinkPicture($newFilename);
-
+                $gite->setPhotos($newFilename);
             }
+
+            $giteRepository->save($gite, true);
+
             return $this->redirectToRoute('app_gite_index', [], Response::HTTP_SEE_OTHER);
 
 

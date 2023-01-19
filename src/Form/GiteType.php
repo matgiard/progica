@@ -3,13 +3,17 @@
 namespace App\Form;
 
 use App\Entity\Gite;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Doctrine\ORM\EntityManagerInterface;
+
 
 
 
@@ -30,20 +34,21 @@ class GiteType extends AbstractType
             ->add('region', RegionsAutocompleteField::class
             )
             ->add('surface')
-            ->add('link_picture', FileType::class, [
-                'label' => 'Photo (jpg, png)',
+            ->add('photos',FileType::class,[
+                'label' =>'Photo du gîte',
+                'mapped' => false,
+                'required' => false,
                 'constraints' => [
                     new File([
-                        'maxSize' => '3000k',
+                        'maxSize' => '4000k',
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/jpg',
+                            'image/gif',
                             'image/pjpeg',
                             'image/png',
-                            'image/x-png',
-                            'image/gif',
                         ],
-                        'mimeTypesMessage' => "Veuillez selectionner un format d'image valide.",
+                        'mimeTypesMessage' => 'Veuillez selectionner un format valide',
                     ])
                 ],
             ])
