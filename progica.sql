@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 19 jan. 2023 à 11:06
+-- Généré le : jeu. 19 jan. 2023 à 14:40
 -- Version du serveur : 10.4.24-MariaDB
--- Version de PHP : 8.0.19
+-- Version de PHP : 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36156,29 +36156,25 @@ CREATE TABLE `gite` (
   `department` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `region` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `surface` double NOT NULL,
+  `photos` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `rooms` int(11) NOT NULL,
   `beds` int(11) NOT NULL,
   `base_price` double NOT NULL,
   `id_price_period` int(11) NOT NULL,
   `pets` tinyint(1) NOT NULL,
-  `id_owner` int(11) DEFAULT NULL,
-  `photos` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `pets_price` double DEFAULT NULL,
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `gite`
 --
 
-INSERT INTO `gite` (`id`, `adress`, `city`, `department`, `region`, `surface`, `rooms`, `beds`, `base_price`, `id_price_period`, `pets`, `id_owner`, `photos`) VALUES
-(35, '10', 'L\'Abergement-de-Varey 01640', 'Aisne', 'Guadeloupe', 30, 2, 2, 2, 2, 2, NULL, 'xxx-63c8fd5269c33.jpg'),
-(36, '21 rue basse', 'Lille 59800', 'Nord', 'Hauts-de-France', 145, 4, 8, 500, 145, 1, NULL, 'xxx-63c8fe11dbc1b.jpg'),
-(37, '21 rue Basse', 'Lille 59800', 'Nord', 'Hauts-de-France', 120, 3, 7, 200, 2, 2, NULL, 'xxx-63c900c16edc4.jpg'),
-(38, '10 rue gabriel peri', 'Saint-Quentin 02100', 'Aisne', 'Hauts-de-France', 120, 4, 7, 200, 2, 2, NULL, 'xxx-63c90224e571f.jpg'),
-(39, '21 rue Basse', 'Ambérieux-en-Dombes 01330', 'Alpes-de-Haute-Provence', 'Martinique', 20, 2, 2, 2, 2, 2, NULL, 'xxx-63c904bb47012.jpg'),
-(40, '21 rue Basse', 'Ambérieux-en-Dombes 01330', 'Alpes-de-Haute-Provence', 'Martinique', 20, 2, 2, 2, 2, 2, NULL, 'photo-63c9052319186.png'),
-(41, '1', 'Ambérieu-en-Bugey 01500', 'Allier', 'Guyane', 32, 2, 2, 2, 2, 1, NULL, 'zeldawp-63c90ef623f9c.jpg'),
-(42, 'ede', 'Ambléon 01300', 'Hautes-Alpes', 'Guyane', 2, 2, 1, 1, 1, 0, NULL, 'zeldawp-63c90f74588d9.jpg'),
-(43, '2', 'Ambérieux-en-Dombes 01330', 'Allier', 'Martinique', 2, 2, 2, 2, 2, 0, NULL, 'zeldawp-63c912bcdd951.jpg');
+INSERT INTO `gite` (`id`, `adress`, `city`, `department`, `region`, `surface`, `photos`, `rooms`, `beds`, `base_price`, `id_price_period`, `pets`, `pets_price`, `user_id`) VALUES
+(2, '45 rue Régard', 'Ambléon 01300', 'Allier', 'Guyane', 30, '1-63c9422e0f9b8.png', 5, 2, 100, 1, 1, 25, 1),
+(3, '41 rue de Bregançon', 'Andert-et-Condon 01300', 'Ardèche', 'Île-de-France', 71, '2-63c943836a8c5.png', 7, 8, 200, 1, 0, NULL, 3),
+(4, '62 rue Flanchard', 'Ambronay 01500', 'Ariège', 'Bourgogne-Franche-Comté', 47, '3-63c944c20599f.png', 6, 6, 80, 1, 1, 15, 3),
+(5, '62 rue Flanchard', 'Ambronay 01500', 'Ariège', 'Bourgogne-Franche-Comté', 47, '3-63c946f1ea458.png', 6, 6, 80, 1, 1, 15, 3);
 
 -- --------------------------------------------------------
 
@@ -36323,10 +36319,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `roles`, `password`, `firstname`, `lastname`, `telephone`, `id_contact`) VALUES
-(1, 'mgiard@test.com', '[\"ROLE_ADMIN\"]', '$2y$13$O1J8Pd5xlDlnAu/VghPSu.CFQzHlb20HbmUQUwbQ1JAmJfrt3weo6', 'Mathieu', 'Giard', NULL, NULL),
-(2, 'xdorival@test.com', '[\"ROLE_ADMIN\"]', '$2y$13$9LuOVyzW7xmZ8JQBN9Tx9ePkfvniKnH8IhASsXINctivxJbjPaR6i', 'Xavier', 'Dorival', NULL, NULL),
-(3, 'eva.khance@progica.fr', '[\"ROLE_ADMIN\"]', '$2y$13$hO/q4jNibNrtZY4ZEBGl9O/rRlhJoIOPZ3wHYFswGTauj2M3X/3fO', 'Eva', 'Khance', NULL, NULL),
-(4, 'renaud.faque@gmail.com', '[\"ROLE_USER\"]', '$2y$13$gh0ZFz4aLwCtB/MAqgeskOVPbqsJIaz8DyQv6n/bCyG/28kV6Vv1K', 'Renaud', 'Faque', NULL, NULL);
+(1, 'mgiard@admin.com', '[\"ROLE_ADMIN\"]', '$2y$13$vVzs7eMIkcW32GSF3eZuDeF11O1Ui4IyNybtiiRrVHZ1fReE5gE/a', 'Mathieu', 'Giard', NULL, NULL),
+(2, 'xdorival@admin.com', '[\"ROLE_ADMIN\"]', '$2y$13$LdT6njrVx9hZSDczgO5aW.ruyz.gASQlydiaWi/6BWthAa9xr.vRu', 'Xavier', 'Dorival', NULL, NULL),
+(3, 'gilbert.maniche@hotmail.fr', '[\"ROLE_USER\"]', '$2y$13$cRq.oy8Z6gphykNvfuHMTOVgz2daMND0Oxm/0EUNwPc0uH9e9j8iu', 'Gilbert', 'Maniche', NULL, NULL),
+(4, 'eva.khance@gmail.com', '[\"ROLE_ADMIN\"]', '$2y$13$WykdZWvyz5Mgwf7ISvCVaOcnpaHukXFENXC8Bf.DEHfUXNzqm3nYW', 'Eva', 'Khance', NULL, NULL);
 
 --
 -- Index pour les tables déchargées
@@ -36360,7 +36356,8 @@ ALTER TABLE `equipement`
 -- Index pour la table `gite`
 --
 ALTER TABLE `gite`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_B638C92CA76ED395` (`user_id`);
 
 --
 -- Index pour la table `gite_equipement`
@@ -36448,7 +36445,7 @@ ALTER TABLE `equipement`
 -- AUTO_INCREMENT pour la table `gite`
 --
 ALTER TABLE `gite`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `messenger_messages`
@@ -36485,6 +36482,16 @@ ALTER TABLE `service`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `gite`
+--
+ALTER TABLE `gite`
+  ADD CONSTRAINT `FK_B638C92CA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
