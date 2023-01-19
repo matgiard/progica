@@ -6,6 +6,7 @@ use App\Repository\GiteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\HttpFoundation\File\File;
 
 
@@ -49,7 +50,7 @@ class Gite
     private ?int $id_price_period = null;
 
     #[ORM\Column]
-    private ?int $id_pets = null;
+    private ?bool $pets = null;
 
     #[ORM\Column]
     private ?int $id_owner;
@@ -179,14 +180,14 @@ class Gite
         return $this;
     }
 
-    public function getIdPets(): ?int
+    public function getPets(): ?bool
     {
-        return $this->id_pets;
+        return $this->pets;
     }
 
-    public function setIdPets(int $id_pets): self
+    public function setPets(bool $pets): self
     {
-        $this->id_pets = $id_pets;
+        $this->pets = $pets;
 
         return $this;
     }

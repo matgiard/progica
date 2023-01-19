@@ -10,7 +10,7 @@
         {{ include('gite/_form.html.twig') }}
 
         {% if is_granted('ROLE_ADMIN') %}
-            <button class="btn btn-warning" href="{{ path('app_gite_index') }}">Liste complète</button>
+            <a class="btn btn-warning"  href="{{ path('app_gite_index') }}">Liste complète</a>
         {% endif %}
     </div>
 {% endblock %}
