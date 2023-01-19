@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 16 jan. 2023 à 11:22
+-- Généré le : jeu. 19 jan. 2023 à 11:06
 -- Version du serveur : 10.4.24-MariaDB
--- Version de PHP : 8.1.6
+-- Version de PHP : 8.0.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36152,20 +36152,33 @@ INSERT INTO `equipement` (`id`, `name`, `price`) VALUES
 CREATE TABLE `gite` (
   `id` int(11) NOT NULL,
   `adress` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_cities` int(11) NOT NULL,
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `department` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `region` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `surface` double NOT NULL,
-  `link_picture` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `rooms` int(11) NOT NULL,
   `beds` int(11) NOT NULL,
   `base_price` double NOT NULL,
-  `total_price` double NOT NULL,
-  `id_service` int(11) NOT NULL,
-  `id_equipement` int(11) NOT NULL,
   `id_price_period` int(11) NOT NULL,
-  `id_pets` int(11) NOT NULL,
-  `id_position` int(11) NOT NULL,
-  `id_owner` int(11) NOT NULL
+  `pets` tinyint(1) NOT NULL,
+  `id_owner` int(11) DEFAULT NULL,
+  `photos` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `gite`
+--
+
+INSERT INTO `gite` (`id`, `adress`, `city`, `department`, `region`, `surface`, `rooms`, `beds`, `base_price`, `id_price_period`, `pets`, `id_owner`, `photos`) VALUES
+(35, '10', 'L\'Abergement-de-Varey 01640', 'Aisne', 'Guadeloupe', 30, 2, 2, 2, 2, 2, NULL, 'xxx-63c8fd5269c33.jpg'),
+(36, '21 rue basse', 'Lille 59800', 'Nord', 'Hauts-de-France', 145, 4, 8, 500, 145, 1, NULL, 'xxx-63c8fe11dbc1b.jpg'),
+(37, '21 rue Basse', 'Lille 59800', 'Nord', 'Hauts-de-France', 120, 3, 7, 200, 2, 2, NULL, 'xxx-63c900c16edc4.jpg'),
+(38, '10 rue gabriel peri', 'Saint-Quentin 02100', 'Aisne', 'Hauts-de-France', 120, 4, 7, 200, 2, 2, NULL, 'xxx-63c90224e571f.jpg'),
+(39, '21 rue Basse', 'Ambérieux-en-Dombes 01330', 'Alpes-de-Haute-Provence', 'Martinique', 20, 2, 2, 2, 2, 2, NULL, 'xxx-63c904bb47012.jpg'),
+(40, '21 rue Basse', 'Ambérieux-en-Dombes 01330', 'Alpes-de-Haute-Provence', 'Martinique', 20, 2, 2, 2, 2, 2, NULL, 'photo-63c9052319186.png'),
+(41, '1', 'Ambérieu-en-Bugey 01500', 'Allier', 'Guyane', 32, 2, 2, 2, 2, 1, NULL, 'zeldawp-63c90ef623f9c.jpg'),
+(42, 'ede', 'Ambléon 01300', 'Hautes-Alpes', 'Guyane', 2, 2, 1, 1, 1, 0, NULL, 'zeldawp-63c90f74588d9.jpg'),
+(43, '2', 'Ambérieux-en-Dombes 01330', 'Allier', 'Martinique', 2, 2, 2, 2, 2, 0, NULL, 'zeldawp-63c912bcdd951.jpg');
 
 -- --------------------------------------------------------
 
@@ -36435,7 +36448,7 @@ ALTER TABLE `equipement`
 -- AUTO_INCREMENT pour la table `gite`
 --
 ALTER TABLE `gite`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT pour la table `messenger_messages`
