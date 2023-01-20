@@ -63,4 +63,13 @@ class GiteRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function findAllByUserId($id) {
+        return $this->createQueryBuilder('g') // m pour "monkey"
+        ->andWhere('g.user_id = :user_id') // on défini le paramètre de requête
+        ->setParameter('user_id', '$id') // on défini le paramètre dynamique
+        ->orderBy('g.id', 'ASC') // On défini ici l'ordre de tri
+        ->getQuery() // Récupération de la query
+        ->getResult(); // Récupération du résultat de la query
+    }
 }

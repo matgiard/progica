@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Photos;
 use App\Entity\Gite;
 use App\Entity\User;
 use App\Form\GiteType;
 use App\Repository\GiteRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -119,5 +119,15 @@ class GiteController extends AbstractController
         }
 
         return $this->redirectToRoute('app_gite_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/user/index', name: 'app_gite_index', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
+    public function indexByUserId(GiteRepository $giteRepository, User $user): Response
+    {
+        $user_id = $user->getId();
+        return $this->render('gite/gite_index_user.html.twig', [
+            'gites' => $giteRepository->findAllByUserId($user_id),
+        ]);
     }
 }
