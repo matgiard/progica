@@ -121,7 +121,7 @@ class GiteController extends AbstractController
         return $this->redirectToRoute('app_gite_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/user/index', name: 'app_gite_index', methods: ['GET'])]
+    #[Route('/user/index', name: 'app_gite_user_index', methods: ['GET'])]
     #[IsGranted('ROLE_USER')]
     public function indexByUserId(GiteRepository $giteRepository, User $user): Response
     {

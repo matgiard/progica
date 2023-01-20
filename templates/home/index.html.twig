@@ -11,4 +11,64 @@
             </form>
         </div>
     </div>
+
+    <div class="container-fluid">
+        <h3>Annonces ajoutées récemment</h3><br>
+        <div class="row row-cols-1 row-cols-md-3 g-4 container-fluid">
+            {% for gite in gites %}
+            <div class="col">
+                <div class="card">
+                    <img src="{{ asset('/images/gites/'~gite.photos) }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ gite.city }}, {{ gite.department }}.</h5>
+                        <p class="card-text">{{ gite.rooms }} chambres, {{ gite.beds }} couchages.</p>
+                        <p>{{ gite.surface }}m²</p>
+                        <p>{{ gite.basePrice }}€</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <br>
+    <div class="container-fluid">
+        <h3>Nos recommandations</h3><br>
+        <div class="row row-cols-1 row-cols-md-3 g-4 container-fluid">
+            {% for gite in gites %}
+                <div class="col">
+                    <div class="card">
+                        <img src="{{ asset('/images/gites/'~gite.photos) }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ gite.city }}, {{ gite.department }}.</h5>
+                            <p class="card-text">{{ gite.rooms }} chambres, {{ gite.beds }} couchages.</p>
+                            <p>{{ gite.surface }}m²</p>
+                            <p>{{ gite.basePrice }}€</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <br>
+    <div class="container-fluid">
+        <h3>À la découverte des terroirs français</h3><br>
+        <div class="row row-cols-1 row-cols-md-3 g-4 container-fluid">
+            {% for gite in gites %}
+                <div class="col">
+                    <div class="card">
+                        <img src="{{ asset('/images/gites/'~gite.photos) }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ gite.city }}, {{ gite.department }}.</h5>
+                            <p class="card-text">{{ gite.rooms }} chambres, {{ gite.beds }} couchages.</p>
+                            <p>{{ gite.surface }}m²</p>
+                            <p>{{ gite.basePrice }}€</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
 {% endblock %}
