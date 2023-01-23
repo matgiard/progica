@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Gite;
-use App\Entity\ServiceEquipement;
+use App\Entity\Services;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\BooleanType;
 use phpDocumentor\Reflection\Types\Boolean;
@@ -83,8 +83,6 @@ class GiteType extends AbstractType
                 'required' => false,
                 'label' => 'Si animaux acceptés veuillez en indiquer le tarif'
             ])
-            ->add('giteServiceEquipements', ServiceEquipementAutocompleteField::class
-            )
         ;
     }
 
