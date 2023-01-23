@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 19 jan. 2023 à 14:40
+-- Généré le : ven. 20 jan. 2023 à 20:55
 -- Version du serveur : 10.4.24-MariaDB
--- Version de PHP : 8.1.6
+-- Version de PHP : 8.0.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36174,7 +36174,8 @@ INSERT INTO `gite` (`id`, `adress`, `city`, `department`, `region`, `surface`, `
 (2, '45 rue Régard', 'Ambléon 01300', 'Allier', 'Guyane', 30, '1-63c9422e0f9b8.png', 5, 2, 100, 1, 1, 25, 1),
 (3, '41 rue de Bregançon', 'Andert-et-Condon 01300', 'Ardèche', 'Île-de-France', 71, '2-63c943836a8c5.png', 7, 8, 200, 1, 0, NULL, 3),
 (4, '62 rue Flanchard', 'Ambronay 01500', 'Ariège', 'Bourgogne-Franche-Comté', 47, '3-63c944c20599f.png', 6, 6, 80, 1, 1, 15, 3),
-(5, '62 rue Flanchard', 'Ambronay 01500', 'Ariège', 'Bourgogne-Franche-Comté', 47, '3-63c946f1ea458.png', 6, 6, 80, 1, 1, 15, 3);
+(5, '62 rue Flanchard', 'Ambronay 01500', 'Ariège', 'Bourgogne-Franche-Comté', 47, '3-63c946f1ea458.png', 6, 6, 80, 1, 1, 15, 3),
+(6, '21 rue Basse', 'Lille 59800', 'Aisne', 'Guyane', 350, 'zeldawp-63c94a569a30b.jpg', 12, 20, 1000, 1, 1, 20, 2);
 
 -- --------------------------------------------------------
 
@@ -36186,6 +36187,18 @@ CREATE TABLE `gite_equipement` (
   `id_gite` int(11) NOT NULL,
   `id_equipement` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `gite_service_equipement`
+--
+
+CREATE TABLE `gite_service_equipement` (
+  `id` int(11) NOT NULL,
+  `gite_id` int(11) NOT NULL,
+  `service_equipement_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -36300,6 +36313,37 @@ INSERT INTO `service` (`id`, `name`, `price`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `service_equipement`
+--
+
+CREATE TABLE `service_equipement` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `service_equipement`
+--
+
+INSERT INTO `service_equipement` (`id`, `name`, `price`) VALUES
+(1, 'Location de ligne', 10),
+(2, 'Ménage en fin de séjour', 15),
+(3, 'Accès Internet', 25),
+(4, 'Lave-vaisselle', 20),
+(5, 'Lave-linge', 15),
+(6, 'Climatisation', 10),
+(7, 'Télévision', 10),
+(8, 'Terrasse', 5),
+(9, 'Barbecue', 10),
+(10, 'Piscine privée', 60),
+(11, 'Piscine partagée', 25),
+(12, 'Tennis', 50),
+(13, 'Ping-pong', 30);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `user`
 --
 
@@ -36322,7 +36366,8 @@ INSERT INTO `user` (`id`, `email`, `roles`, `password`, `firstname`, `lastname`,
 (1, 'mgiard@admin.com', '[\"ROLE_ADMIN\"]', '$2y$13$vVzs7eMIkcW32GSF3eZuDeF11O1Ui4IyNybtiiRrVHZ1fReE5gE/a', 'Mathieu', 'Giard', NULL, NULL),
 (2, 'xdorival@admin.com', '[\"ROLE_ADMIN\"]', '$2y$13$LdT6njrVx9hZSDczgO5aW.ruyz.gASQlydiaWi/6BWthAa9xr.vRu', 'Xavier', 'Dorival', NULL, NULL),
 (3, 'gilbert.maniche@hotmail.fr', '[\"ROLE_USER\"]', '$2y$13$cRq.oy8Z6gphykNvfuHMTOVgz2daMND0Oxm/0EUNwPc0uH9e9j8iu', 'Gilbert', 'Maniche', NULL, NULL),
-(4, 'eva.khance@gmail.com', '[\"ROLE_ADMIN\"]', '$2y$13$WykdZWvyz5Mgwf7ISvCVaOcnpaHukXFENXC8Bf.DEHfUXNzqm3nYW', 'Eva', 'Khance', NULL, NULL);
+(4, 'eva.khance@gmail.com', '[\"ROLE_ADMIN\"]', '$2y$13$WykdZWvyz5Mgwf7ISvCVaOcnpaHukXFENXC8Bf.DEHfUXNzqm3nYW', 'Eva', 'Khance', NULL, NULL),
+(5, 'hJean@user.com', '[\"ROLE_USER\"]', '$2y$13$GXMyH8JG8Exy9jd6217dE.CS3g8KjDDs/AnAJ33NJoboMPGW4zmWq', 'Henry', 'Jean', NULL, NULL);
 
 --
 -- Index pour les tables déchargées
@@ -36367,6 +36412,14 @@ ALTER TABLE `gite_equipement`
   ADD KEY `id_equipement` (`id_equipement`);
 
 --
+-- Index pour la table `gite_service_equipement`
+--
+ALTER TABLE `gite_service_equipement`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_851D751C652CAE9B` (`gite_id`),
+  ADD KEY `IDX_851D751C50D0B5DE` (`service_equipement_id`);
+
+--
 -- Index pour la table `git_service`
 --
 ALTER TABLE `git_service`
@@ -36404,6 +36457,12 @@ ALTER TABLE `regions`
 -- Index pour la table `service`
 --
 ALTER TABLE `service`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `service_equipement`
+--
+ALTER TABLE `service_equipement`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -36445,7 +36504,13 @@ ALTER TABLE `equipement`
 -- AUTO_INCREMENT pour la table `gite`
 --
 ALTER TABLE `gite`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT pour la table `gite_service_equipement`
+--
+ALTER TABLE `gite_service_equipement`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `messenger_messages`
@@ -36478,10 +36543,16 @@ ALTER TABLE `service`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT pour la table `service_equipement`
+--
+ALTER TABLE `service_equipement`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Contraintes pour les tables déchargées
@@ -36492,6 +36563,13 @@ ALTER TABLE `user`
 --
 ALTER TABLE `gite`
   ADD CONSTRAINT `FK_B638C92CA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Contraintes pour la table `gite_service_equipement`
+--
+ALTER TABLE `gite_service_equipement`
+  ADD CONSTRAINT `FK_851D751C50D0B5DE` FOREIGN KEY (`service_equipement_id`) REFERENCES `service_equipement` (`id`),
+  ADD CONSTRAINT `FK_851D751C652CAE9B` FOREIGN KEY (`gite_id`) REFERENCES `gite` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

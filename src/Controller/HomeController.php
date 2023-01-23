@@ -18,9 +18,12 @@ class HomeController extends AbstractController
     {
 
         $gite = $giteRepository->findAll();
+        $gitesBy = $giteRepository->findBy(array('region' => 'Guyane'));
+
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
-            'gites' => $gite
+            'gites' => $gite,
+            'gitesBy' => $gitesBy,
         ]);
     }
 }

@@ -59,6 +59,14 @@ class Gite
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    #[ORM\OneToMany(mappedBy: 'gite', targetEntity: GiteServiceEquipement::class)]
+    private Collection $giteServiceEquipements;
+
+    public function __construct()
+    {
+        $this->giteServiceEquipements = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -217,6 +225,36 @@ class Gite
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, GiteServiceEquipement>
+     */
+    public function getGiteServiceEquipements(): Collection
+    {
+        return $this->giteServiceEquipements;
+    }
+
+    public function addGiteServiceEquipement(GiteServiceEquipement $giteServiceEquipement): self
+    {
+        if (!$this->giteServiceEquipements->contains($giteServiceEquipement)) {
+            $this->giteServiceEquipements->add($giteServiceEquipement);
+            $giteServiceEquipement->setGite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGiteServiceEquipement(GiteServiceEquipement $giteServiceEquipement): self
+    {
+        if ($this->giteServiceEquipements->removeElement($giteServiceEquipement)) {
+            // set the owning side to null (unless already changed)
+            if ($giteServiceEquipement->getGite() === $this) {
+                $giteServiceEquipement->setGite(null);
+            }
+        }
 
         return $this;
     }
