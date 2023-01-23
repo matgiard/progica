@@ -24,6 +24,7 @@
                         <p class="card-text">{{ gite.rooms }} chambres, {{ gite.beds }} couchages.</p>
                         <p>{{ gite.surface }}m²</p>
                         <p>{{ gite.basePrice }}€</p>
+                        <a href="{{ path('app_gite_details', {'id': gite.id}) }}">Détails</a>
                     </div>
                 </div>
             </div>
@@ -44,6 +45,7 @@
                             <p class="card-text">{{ gite.rooms }} chambres, {{ gite.beds }} couchages.</p>
                             <p>{{ gite.surface }}m²</p>
                             <p>{{ gite.basePrice }}€</p>
+                            <a href="{{ path('app_gite_details', {'id': gite.id}) }}">Détails</a>
                         </div>
                     </div>
                 </div>

@@ -81,10 +81,6 @@ class GiteController extends AbstractController
         ]);
     }
 
-
-
-
-
         #[Route('/{id}', name: 'app_gite_show', methods: ['GET'])]
     public function show(Gite $gite): Response
     {
@@ -92,6 +88,15 @@ class GiteController extends AbstractController
             'gite' => $gite,
         ]);
     }
+
+        #[Route('/{id}/details', name: 'app_gite_details', methods: ['GET'])]
+    public function gite_details(Gite $gite): Response
+    {
+        return $this->render('gite/gite_details.html.twig', [
+            'gite' => $gite,
+        ]);
+    }
+
 
     #[Route('/{id}/edit', name: 'app_gite_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Gite $gite, GiteRepository $giteRepository): Response

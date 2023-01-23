@@ -5,6 +5,7 @@
     <title>{% block title %}Welcome!{% endblock %}</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
     {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
@@ -26,6 +27,14 @@
                     <li class="nav-item ml-auto">
                         <a class="nav-link active" aria-current="page" href="{{ path ('app_gite_new') }}">Publier une annonce</a>
                     </li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path ('app_user_index') }}">Liste des utilisateurs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path ('app_gite_index') }}">Tous les gîtes</a>
+                        </li>
+                    {% endif %}
                     {% if is_granted('ROLE_USER') %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path ('app_logout') }}">Déconnexion</a>
@@ -38,6 +47,7 @@
                             <a class="nav-link" href="{{ path ('app_login') }}">Se connecter</a>
                         </li>
                     {% endif %}
+
                 </ul>
             </div>
         </div>
