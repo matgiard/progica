@@ -6,6 +6,7 @@ use App\Repository\ServiceEquipementRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Form\FormTypeInterface;
 
 #[ORM\Entity(repositoryClass: ServiceEquipementRepository::class)]
 class ServiceEquipement
@@ -86,5 +87,10 @@ class ServiceEquipement
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name.' '.$this->price;
     }
 }

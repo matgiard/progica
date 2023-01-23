@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Gite;
+use App\Entity\GiteServiceEquipement;
 use App\Entity\User;
 use App\Form\GiteType;
 use App\Repository\GiteRepository;
@@ -37,11 +38,12 @@ class GiteController extends AbstractController
     {
         $gite = new Gite();
         $gite->setUser($user);
+        $giteServiceEquipement = new GiteServiceEquipement();
         $form = $this->createForm(GiteType::class, $gite);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $gite->addGiteServiceEquipement($giteServiceEquipement);
             $photosFile = $form->get('photos')->getData();
 
             // this condition is needed because the 'brochure' field is not required
